@@ -2,30 +2,28 @@
 
 # agent-from-zero
 
-从最小 Agent 循环开始学习编码 Agent 的独立项目。前一阶段在 [llm-from-zero](https://github.com/WuShang-d/llm-from-zero) 中完成了从分词、预训练到对话 SFT 的实验；结果与限制见其 [README](https://github.com/WuShang-d/llm-from-zero#readme) 和 [RESULTS.md](https://github.com/WuShang-d/llm-from-zero/blob/main/RESULTS.md)。其中手搓模型的回答能力不足，**不作为本项目的实际推理后端**。
+亲手从零写一个 Agent 的学习仓库。前一阶段在 [llm-from-zero](https://github.com/WuShang-d/llm-from-zero) 中完成了从分词、预训练到对话 SFT 的实验；结果与限制见其 [README](https://github.com/WuShang-d/llm-from-zero#readme) 和 [RESULTS.md](https://github.com/WuShang-d/llm-from-zero/blob/main/RESULTS.md)。其中手搓模型的回答能力不足，**不作为本项目的实际推理后端**。
 
-学习路径：Agent 循环 → 工具调用 → 状态与上下文管理 → 错误处理 → 权限控制 → 任务评测；长期探索类似 Claude Code 的编码 Agent。每一步以可运行代码和可验证行为推进。
+学习路径：单轮对话 → 多轮对话循环 → 状态与上下文 → 本地工具 → 模型工具调用 → Agent 运行循环 → 错误、权限、记忆、MCP 与评测。长期目标是探索类似 Claude Code 的编码 Agent。
 
-完整学习材料见 [lectures 课程目录](lectures/README.md)。课程文档描述后续要亲手完成的实验，**不代表对应功能已在代码中实现**。
+从 [lectures 课程目录](lectures/README.md)进入。讲义给出问题、动手步骤和验收方法；Agent 的实现由学习者逐课亲手写入仓库，不预置完整实现。图示及后续课程目标**不代表仓库当前已有这些功能**。
 
-## 当前里程碑：最小循环
+## 当前状态：从空白开始
 
-现有代码只有决策、记录、结束三个环节，以及最大步数限制。`DemoDecider` 是确定性的演示决策器，用来验证循环控制流程；它不使用模型，不调用工具，也不执行输入任务。后续接入实际推理后端时可替换 `Decider`，但需要单独实现和验证。
+仓库当前没有 Agent 运行代码。第 1 课将从空文件写出连接本地模型的单轮终端对话；第 2 课再加入多轮对话循环。模型可通过本机 Ollama 提供，具体标签可替换，课程不依赖付费 API。
 
-需要 Python 3.10+，无第三方依赖。在仓库根目录运行：
+开始前需要 Python 3.10+、正在运行的 Ollama 和一个已下载的本地对话模型。先在自己的终端确认：
 
 ```bash
-python3 -m agent_from_zero "查看项目结构"
-python3 -m unittest discover -s tests -v
+python3 --version
+ollama list
 ```
 
-第一个命令展示两次决策及最终状态 `finished`。传入的任务只用于演示记录，不会访问文件或执行命令。
+然后阅读[第 1 课](lectures/01-first-chat.md)，按步骤创建自己的第一个 Python 文件。Ollama 的 [Chat API](https://docs.ollama.com/api/chat) 在本机提供消息接口；模型标签由你在练习时选择。
 
 ## 目录
 
 ```text
-agent_from_zero/   # 最小循环、决策接口和演示入口
-tests/             # 循环结束与步数上限的测试
-lectures/          # 15 课讲义与原文配图
+lectures/          # 分课讲义、原文配图与后期练习项目
 README.md
 ```
